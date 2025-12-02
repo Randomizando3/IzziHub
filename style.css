@@ -83,23 +83,16 @@ header {
     white-space: nowrap;
 }
 
+/* AQUI FOI A ALTERAÇÃO: usando a logo.png */
 .logo-mark {
     width: 40px;
     height: 40px;
     border-radius: 16px;
-    background: conic-gradient(from 220deg, #ff4d8b, #f97316, #2563eb, #a855f7, #ff4d8b);
+    background: url('imagens/logo.png') center center / cover no-repeat;
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 8px 18px rgba(79, 70, 229, 0.3);
 }
-
-    .logo-mark::after {
-        content: "";
-        position: absolute;
-        inset: 3px;
-        border-radius: inherit;
-        background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.7) 0, transparent 55%), radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.45) 0, transparent 65%);
-    }
 
 .logo-text-title {
     font-size: 1.1rem;

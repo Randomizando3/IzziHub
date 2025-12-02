@@ -16,7 +16,12 @@ require __DIR__ . '/phpmailer/Exception.php';
 $feedbackSuccess = false;
 $feedbackError   = '';
 
-// Processa envio do formulário
+// Se vier de um redirect com status na URL, tratamos aqui
+if (isset($_GET['s']) && $_GET['s'] === 'ok') {
+    $feedbackSuccess = true;
+}
+
+// Processa envio do formulário (apenas no POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitiza dados básicos
     $nome     = trim($_POST['nome'] ?? '');
@@ -68,10 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->AltBody = $bodyText;
 
             $mail->send();
-            $feedbackSuccess = true;
+
+            // ✅ SUCESSO: redireciona para evitar reenvio no refresh
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?s=ok');
+            exit;
         } catch (Exception $e) {
+            // Falha no envio: mostra erro na mesma requisição
             $feedbackSuccess = false;
-            $feedbackError   = $mail->ErrorInfo; // Mostramos lá embaixo em vermelho
+            $feedbackError   = $mail->ErrorInfo;
         }
     } else {
         $feedbackSuccess = false;
@@ -133,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="container">
                 <nav class="nav">
                     <a href="#top" class="nav-brand">
-                        <div class="logo-mark"></div>
+                        <img src="imagens/logo.png" alt="Logo IzziHub" class="logo-mark">
                         <div>
                             <div class="logo-text-title">IzziHub</div>
                             <div class="logo-text-sub">Publicidade & Software Studio</div>
