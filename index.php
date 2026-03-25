@@ -537,35 +537,11 @@
 
                     <div class="contact-grid">
                         <aside class="contact-side reveal">
-                            <div><strong>Atendimento direto e sem formulário</strong></div>
-                            <div class="contact-channels">
-                                <span>
-                                    Voltamos para o visual antigo do site, mas o primeiro contato agora acontece só por WhatsApp ou e-mail para evitar spam e acelerar o atendimento.
-                                </span>
-
-                                <div class="pill-list">
-                                    <span>Sites e landing pages</span>
-                                    <span>Sistemas web sob medida</span>
-                                    <span>Aplicativos mobile</span>
-                                    <span>Branding e campanhas</span>
-                                </div>
-
-                                <a class="btn btn-primary" href="https://wa.me/5511982580565" target="_blank" rel="noopener">
-                                    Chamar no WhatsApp <span class="btn-icon">↗</span>
-                                </a>
-
-                                <a class="btn btn-ghost" href="/cases.php">
-                                    Ver cases publicados
-                                </a>
-
-                                <span>Se preferir, envie um resumo do projeto por e-mail e retomamos por lá.</span>
-                            </div>
-                        </aside>
-
-                        <aside class="contact-side reveal">
                             <div><strong>Prefere falar direto?</strong></div>
                             <div class="contact-channels">
-                                <span>Chame no WhatsApp ou envie um e-mail:</span>
+                                <span>
+                                    O primeiro contato agora acontece por WhatsApp ou e-mail, sem formulário, para evitar spam e acelerar o atendimento.
+                                </span>
 
                                 <a class="btn-whatsapp" href="https://wa.me/5511982580565" target="_blank" rel="noopener">
                                     <span class="btn-whatsapp-icon">🟢</span>
