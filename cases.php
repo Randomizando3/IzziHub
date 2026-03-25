@@ -73,7 +73,7 @@
     <nav class="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-background/75 backdrop-blur-xl">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <a class="flex items-center gap-3" href="/">
-                <img src="imagens/logo.png" alt="IzziHub" class="h-10 w-auto">
+                <img src="logo.png" alt="IzziHub" class="h-10 w-auto">
             </a>
             <div class="hidden items-center gap-8 md:flex">
                 <a class="text-sm font-semibold text-white/70 transition hover:text-white" href="/#solucoes">Soluções</a>
@@ -315,7 +315,7 @@
     <footer class="border-t border-white/5 bg-black/20">
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
             <div class="flex items-center gap-3">
-                <img src="imagens/logo.png" alt="IzziHub" class="h-9 w-auto">
+                <img src="logo.png" alt="IzziHub" class="h-9 w-auto">
                 <span class="text-sm text-white/65">Portfólio de produtos e experiências digitais.</span>
             </div>
             <p class="text-center text-xs uppercase tracking-[0.18em] text-white/40">© <span id="year"></span> IzziHub. São Paulo, Brasil.</p>
