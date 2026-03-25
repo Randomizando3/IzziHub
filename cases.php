@@ -67,6 +67,159 @@
         .case-card[data-hidden="true"] {
             display: none;
         }
+        .case-card {
+            cursor: pointer;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+        .case-card:hover,
+        .case-card:focus-visible {
+            transform: translateY(-4px);
+            border-color: rgba(71, 234, 237, 0.32);
+            outline: none;
+        }
+        .case-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            border: none;
+            background: transparent;
+            padding: 0;
+            color: #47eaed;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .case-card-action:hover {
+            color: #f5f7f7;
+        }
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .lightbox.is-open {
+            display: flex;
+        }
+        .lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 10, 10, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .lightbox-panel {
+            position: relative;
+            z-index: 1;
+            width: min(1040px, 100%);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                radial-gradient(circle at top left, rgba(71, 234, 237, 0.12), transparent 26%),
+                rgba(24, 26, 26, 0.96);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+            padding: 1.25rem;
+        }
+        .lightbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .lightbox-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #f5f7f7;
+        }
+        .lightbox-close,
+        .lightbox-nav {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(16, 17, 17, 0.72);
+            color: #f5f7f7;
+            cursor: pointer;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+        .lightbox-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 999px;
+            font-size: 1.2rem;
+        }
+        .lightbox-close:hover,
+        .lightbox-nav:hover {
+            background: rgba(71, 234, 237, 0.18);
+            transform: scale(1.04);
+        }
+        .lightbox-main {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.6rem;
+            background: #090b0b;
+        }
+        .lightbox-main img {
+            display: block;
+            width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+            margin: 0 auto;
+            background: #090b0b;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 999px;
+            font-size: 1.25rem;
+        }
+        .lightbox-nav.prev {
+            left: 1rem;
+        }
+        .lightbox-nav.next {
+            right: 1rem;
+        }
+        .lightbox-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 0.9rem;
+            color: #9aa8a8;
+            font-size: 0.82rem;
+        }
+        .lightbox-counter strong {
+            color: #f5f7f7;
+        }
+        @media (max-width: 768px) {
+            .lightbox {
+                padding: 1rem;
+            }
+            .lightbox-panel {
+                border-radius: 1.5rem;
+                padding: 1rem;
+            }
+            .lightbox-main img {
+                max-height: 62vh;
+            }
+            .lightbox-nav {
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+            .lightbox-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body class="font-body text-text selection:bg-cyan/25">
@@ -132,7 +285,7 @@
         <section>
             <div class="mx-auto max-w-7xl px-6">
                 <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-case-grid>
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app" data-case="amora" role="button" tabindex="0" aria-label="Abrir galeria do case AmoraLovers">
                         <img src="imagens/cases/amora-2.jpg" alt="AmoraLovers app" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -147,10 +300,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Chat</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Comunidade</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://app.amoralovers.com" target="_blank" rel="noopener">Abrir projeto <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="amora">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema" data-case="aviv" role="button" tabindex="0" aria-label="Abrir galeria do case Aviv Mais">
                         <img src="imagens/cases/aviv-1.jpg" alt="Aviv mais plataforma" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -165,10 +318,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Assinaturas</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Web app</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://avivmais.com.br" target="_blank" rel="noopener">Abrir projeto <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="aviv">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema" data-case="unionboard-soft" role="button" tabindex="0" aria-label="Abrir galeria do case UnionBoard Software">
                         <img src="imagens/cases/unionboardsoftware-1.jpg" alt="UnionBoard software" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -183,10 +336,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Biblioteca</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Interface rica</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20ver%20mais%20sobre%20o%20case%20UnionBoard." target="_blank" rel="noopener">Pedir detalhes <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="unionboard-soft">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app" data-case="freelizz" role="button" tabindex="0" aria-label="Abrir galeria do case Freelizz">
                         <img src="imagens/cases/app-workana-1.jpg" alt="Plataforma marketplace de freelancers" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -201,10 +354,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Perfis</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Oportunidades</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://freelizz.com" target="_blank" rel="noopener">Abrir projeto <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="freelizz">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema" data-case="transcricao" role="button" tabindex="0" aria-label="Abrir galeria do case Transcrição e voz">
                         <img src="imagens/cases/voz-1.jpg" alt="Transcrição de áudio e acessibilidade" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -219,10 +372,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Texto</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Fluxo assistivo</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://audiogene.com.br" target="_blank" rel="noopener">Abrir referência <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="transcricao">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema" data-case="webscrap" role="button" tabindex="0" aria-label="Abrir galeria do case Webscrap e coleta">
                         <img src="imagens/cases/scrap.jpg" alt="Automação webscrap" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -237,10 +390,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Dados</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Automação</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20um%20fluxo%20de%20automa%C3%A7%C3%A3o%20parecido." target="_blank" rel="noopener">Falar sobre algo assim <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="webscrap">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="app" data-case="dayapp" role="button" tabindex="0" aria-label="Abrir galeria do case DayApp">
                         <img src="imagens/cases/dayapp-2.jpg" alt="DayApp hábitos" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -255,10 +408,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Retenção</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">UX mobile</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20um%20app%20de%20rotina%20ou%20comunidade%20parecido." target="_blank" rel="noopener">Pedir orçamento <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="dayapp">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="site">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="site" data-case="unionboard-site" role="button" tabindex="0" aria-label="Abrir galeria do case UnionBoard Site">
                         <img src="imagens/cases/unionsite.jpg" alt="UnionBoard site institucional" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -273,10 +426,10 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Webflow</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Conversão</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20um%20site%20institucional%20nesse%20n%C3%ADvel." target="_blank" rel="noopener">Quero algo assim <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="unionboard-site">Abrir galeria <span>↗</span></button>
                     </article>
 
-                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="site">
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="site" data-case="autogarage" role="button" tabindex="0" aria-label="Abrir galeria do case AutoGarageShow">
                         <img src="imagens/cases/autogarage-1.jpg" alt="AutoGarageShow site" class="h-64 w-full rounded-[1.6rem] object-cover">
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <div>
@@ -291,7 +444,25 @@
                             <span class="rounded-full bg-white/5 px-3 py-1">Campanha</span>
                             <span class="rounded-full bg-white/5 px-3 py-1">Landing</span>
                         </div>
-                        <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20uma%20landing%20ou%20site%20promocional%20parecido." target="_blank" rel="noopener">Conversar sobre este formato <span>↗</span></a>
+                        <button class="case-card-action" type="button" data-open-gallery="autogarage">Abrir galeria <span>↗</span></button>
+                    </article>
+
+                    <article class="case-card glass-card overflow-hidden rounded-[2rem] p-5" data-type="sistema" data-case="propostas" role="button" tabindex="0" aria-label="Abrir galeria do case Gerenciamento de Propostas">
+                        <img src="imagens/cases/propostas-dashboard.png" alt="Sistema de gerenciamento de propostas" class="h-64 w-full rounded-[1.6rem] object-cover object-left-top">
+                        <div class="mt-6 flex items-center justify-between gap-4">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-[0.22em] text-cyan">Operação comercial</span>
+                                <h3 class="mt-2 font-headline text-2xl font-bold">Gerenciamento de Propostas</h3>
+                            </div>
+                            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Sistema</span>
+                        </div>
+                        <p class="mt-4 text-sm leading-relaxed text-muted">Sistema web em PHP para criar, publicar e acompanhar propostas comerciais, com analytics de leitura, gestão de usuários e assinatura digital.</p>
+                        <div class="mt-5 flex flex-wrap gap-2 text-xs text-white/70">
+                            <span class="rounded-full bg-white/5 px-3 py-1">Propostas</span>
+                            <span class="rounded-full bg-white/5 px-3 py-1">Analytics</span>
+                            <span class="rounded-full bg-white/5 px-3 py-1">ZapSign</span>
+                        </div>
+                        <button class="case-card-action" type="button" data-open-gallery="propostas">Abrir galeria <span>↗</span></button>
                     </article>
                 </div>
             </div>
@@ -311,6 +482,28 @@
             </div>
         </section>
     </main>
+
+    <div class="lightbox" id="case-lightbox" aria-hidden="true">
+        <div class="lightbox-backdrop" data-lightbox-close></div>
+        <div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+            <div class="lightbox-header">
+                <div class="lightbox-title" id="lightbox-title">Case</div>
+                <button class="lightbox-close" type="button" data-lightbox-close aria-label="Fechar galeria">&times;</button>
+            </div>
+            <div class="lightbox-main">
+                <button class="lightbox-nav prev" type="button" id="lightbox-prev" aria-label="Imagem anterior">&#10094;</button>
+                <img id="lightbox-image" src="" alt="">
+                <button class="lightbox-nav next" type="button" id="lightbox-next" aria-label="Próxima imagem">&#10095;</button>
+            </div>
+            <div class="lightbox-footer">
+                <div class="lightbox-counter">
+                    <span id="lightbox-index"><strong>1</strong></span>
+                    <span id="lightbox-total">/ 1</span>
+                </div>
+                <div>Use as setas do teclado ou toque nas setas laterais para navegar.</div>
+            </div>
+        </div>
+    </div>
 
     <footer class="border-t border-white/5 bg-black/20">
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
@@ -352,6 +545,215 @@
                     card.setAttribute("data-hidden", hidden ? "true" : "false");
                 });
             });
+        });
+
+        const galleries = {
+            amora: {
+                title: "AmoraLovers",
+                images: [
+                    "imagens/cases/amora-1.jpg",
+                    "imagens/cases/amora-2.jpg",
+                    "imagens/cases/amora-3.jpg"
+                ]
+            },
+            aviv: {
+                title: "Aviv Mais",
+                images: [
+                    "imagens/cases/aviv-1.jpg",
+                    "imagens/cases/aviv-2.jpg",
+                    "imagens/cases/aviv-3.jpg",
+                    "imagens/cases/aviv-4.jpg",
+                    "imagens/cases/aviv-5.jpg"
+                ]
+            },
+            "unionboard-soft": {
+                title: "UnionBoard Software",
+                images: [
+                    "imagens/cases/unionboardsoftware-1.jpg",
+                    "imagens/cases/aulas-1.jpg",
+                    "imagens/cases/aulas-2.jpg",
+                    "imagens/cases/aulas-3.jpg",
+                    "imagens/cases/aulas-4.jpg",
+                    "imagens/cases/modulo-3d.jpg"
+                ]
+            },
+            freelizz: {
+                title: "Freelizz",
+                images: [
+                    "imagens/cases/app-workana-1.jpg",
+                    "imagens/cases/app-workana-2.jpg"
+                ]
+            },
+            transcricao: {
+                title: "Transcrição e voz",
+                images: [
+                    "imagens/cases/voz-1.jpg"
+                ]
+            },
+            webscrap: {
+                title: "Webscrap e coleta",
+                images: [
+                    "imagens/cases/scrap.jpg"
+                ]
+            },
+            dayapp: {
+                title: "DayApp",
+                images: [
+                    "imagens/cases/dayapp-1.jpg",
+                    "imagens/cases/dayapp-2.jpg"
+                ]
+            },
+            "unionboard-site": {
+                title: "UnionBoard Site",
+                images: [
+                    "imagens/cases/unionsite.jpg"
+                ]
+            },
+            autogarage: {
+                title: "AutoGarageShow",
+                images: [
+                    "imagens/cases/autogarage-1.jpg",
+                    "imagens/cases/autogarage-2.jpg",
+                    "imagens/cases/autogarage-3.jpg"
+                ]
+            },
+            propostas: {
+                title: "Gerenciamento de Propostas",
+                images: [
+                    "imagens/cases/propostas-login.png",
+                    "imagens/cases/propostas-dashboard.png",
+                    "imagens/cases/propostas-gestao-propostas.png",
+                    "imagens/cases/propostas-gestao-usuarios.png",
+                    "imagens/cases/propostas-modelo.jpeg"
+                ]
+            }
+        };
+
+        const lightbox = document.getElementById("case-lightbox");
+        const lightboxTitle = document.getElementById("lightbox-title");
+        const lightboxImage = document.getElementById("lightbox-image");
+        const lightboxIndex = document.getElementById("lightbox-index");
+        const lightboxTotal = document.getElementById("lightbox-total");
+        const lightboxPrev = document.getElementById("lightbox-prev");
+        const lightboxNext = document.getElementById("lightbox-next");
+        const lightboxCloseButtons = Array.from(document.querySelectorAll("[data-lightbox-close]"));
+        const galleryButtons = Array.from(document.querySelectorAll("[data-open-gallery]"));
+
+        let activeGallery = null;
+        let activeIndex = 0;
+
+        function updateLightbox() {
+            if (!activeGallery || !galleries[activeGallery]) {
+                return;
+            }
+
+            const gallery = galleries[activeGallery];
+            const currentImage = gallery.images[activeIndex];
+
+            lightboxTitle.textContent = gallery.title;
+            lightboxImage.src = currentImage;
+            lightboxImage.alt = gallery.title + " - imagem " + (activeIndex + 1);
+            lightboxIndex.innerHTML = "<strong>" + (activeIndex + 1) + "</strong>";
+            lightboxTotal.textContent = "/ " + gallery.images.length;
+        }
+
+        function openLightbox(caseKey) {
+            if (!galleries[caseKey] || !lightbox) {
+                return;
+            }
+
+            activeGallery = caseKey;
+            activeIndex = 0;
+            updateLightbox();
+            lightbox.classList.add("is-open");
+            lightbox.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            if (!lightbox) {
+                return;
+            }
+
+            lightbox.classList.remove("is-open");
+            lightbox.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+            activeGallery = null;
+            activeIndex = 0;
+            lightboxImage.removeAttribute("src");
+        }
+
+        function nextImage() {
+            if (!activeGallery) {
+                return;
+            }
+
+            const gallery = galleries[activeGallery];
+            activeIndex = (activeIndex + 1) % gallery.images.length;
+            updateLightbox();
+        }
+
+        function prevImage() {
+            if (!activeGallery) {
+                return;
+            }
+
+            const gallery = galleries[activeGallery];
+            activeIndex = (activeIndex - 1 + gallery.images.length) % gallery.images.length;
+            updateLightbox();
+        }
+
+        caseCards.forEach((card) => {
+            const caseKey = card.getAttribute("data-case");
+            if (!caseKey) {
+                return;
+            }
+
+            card.addEventListener("click", () => openLightbox(caseKey));
+            card.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openLightbox(caseKey);
+                }
+            });
+        });
+
+        galleryButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const caseKey = button.getAttribute("data-open-gallery");
+                openLightbox(caseKey);
+            });
+        });
+
+        if (lightboxPrev) {
+            lightboxPrev.addEventListener("click", prevImage);
+        }
+
+        if (lightboxNext) {
+            lightboxNext.addEventListener("click", nextImage);
+        }
+
+        lightboxCloseButtons.forEach((button) => {
+            button.addEventListener("click", closeLightbox);
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (!lightbox || !lightbox.classList.contains("is-open")) {
+                return;
+            }
+
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+
+            if (event.key === "ArrowRight") {
+                nextImage();
+            }
+
+            if (event.key === "ArrowLeft") {
+                prevImage();
+            }
         });
 
         const year = document.getElementById("year");
