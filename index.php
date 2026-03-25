@@ -443,13 +443,13 @@ $wa = static function (string $source, string $message = ''): string {
 
                     <article class="glass-card rounded-[2rem] p-6">
                         <div class="flex items-center gap-4">
-                            <img src="https://img.freepik.com/free-photo/young-woman-wearing-striped-shirt-eyeglasses_273609-13230.jpg?semt=ais_hybrid&w=740&q=80" alt="Juliana Costa" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQEnKeXQOhrb-w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715488595060?e=1776297600&v=beta&t=ZkOiLaC4hSTxXLjFnTYF_TQm5bfd31btdB3bPKxRbpo" alt="Dany Lee" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
                             <div>
-                                <h3 class="font-headline text-xl font-bold">Juliana Costa</h3>
-                                <p class="mt-1 text-sm text-white/70">Gestora de Projetos</p>
+                                <h3 class="font-headline text-xl font-bold">Dany Lee</h3>
+                                <p class="mt-1 text-sm text-white/70">Ilustradora e Motion Designer</p>
                             </div>
                         </div>
-                        <p class="mt-5 text-sm leading-relaxed text-muted">Organiza cronograma, alinhamentos e prioridades para a entrega seguir com ritmo, previsibilidade e comunicação clara.</p>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Cuida de ilustração, direção visual e animação para deixar interfaces, campanhas e apresentações com mais personalidade e acabamento.</p>
                     </article>
                 </div>
             </div>
