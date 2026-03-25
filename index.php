@@ -98,9 +98,11 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.58) 46%, rgba(0, 0, 0, 0.1));
+            z-index: 1;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.96), rgba(0, 0, 0, 0.78) 48%, rgba(0, 0, 0, 0.42));
         }
-        .portfolio-card > * { position: relative; z-index: 1; }
+        .portfolio-card > img { position: relative; z-index: 0; }
+        .portfolio-copy { position: relative; z-index: 2; }
         .whatsapp-fab { box-shadow: 0 18px 45px rgba(37, 211, 102, 0.35); }
         @keyframes marquee {
             from { transform: translateX(0); }
@@ -288,7 +290,7 @@
                 <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                     <article class="portfolio-card group relative overflow-hidden rounded-[2rem]">
                         <img src="imagens/cases/amora-2.jpg" alt="Rede social de nicho AmoraLovers" class="h-[430px] w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-x-0 bottom-0 p-7">
+                        <div class="portfolio-copy absolute inset-x-0 bottom-0 p-7">
                             <span class="mb-2 block text-xs font-bold uppercase tracking-[0.24em] text-green">Comunidade digital</span>
                             <h3 class="font-headline text-2xl font-bold">Rede social de nicho</h3>
                             <p class="mt-2 text-sm leading-relaxed text-white/72">Feed, match, chat e recorrência em um app pensado para engajamento e retenção.</p>
@@ -296,7 +298,7 @@
                     </article>
                     <article class="portfolio-card group relative overflow-hidden rounded-[2rem]">
                         <img src="imagens/cases/unionboardsoftware-1.jpg" alt="Software educacional UnionBoard" class="h-[430px] w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-x-0 bottom-0 p-7">
+                        <div class="portfolio-copy absolute inset-x-0 bottom-0 p-7">
                             <span class="mb-2 block text-xs font-bold uppercase tracking-[0.24em] text-cyan">Edtech</span>
                             <h3 class="font-headline text-2xl font-bold">Software educacional</h3>
                             <p class="mt-2 text-sm leading-relaxed text-white/72">Experiência para quadros interativos, biblioteca multimídia e produção didática com mais fluidez.</p>
@@ -304,7 +306,7 @@
                     </article>
                     <article class="portfolio-card group relative overflow-hidden rounded-[2rem]">
                         <img src="imagens/cases/app-workana-1.jpg" alt="Plataforma marketplace para freelancers" class="h-[430px] w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-x-0 bottom-0 p-7">
+                        <div class="portfolio-copy absolute inset-x-0 bottom-0 p-7">
                             <span class="mb-2 block text-xs font-bold uppercase tracking-[0.24em] text-orange">Marketplace</span>
                             <h3 class="font-headline text-2xl font-bold">Plataforma de freelancers</h3>
                             <p class="mt-2 text-sm leading-relaxed text-white/72">Perfis, contratação, publicação de projetos e organização de demanda em uma única experiência.</p>
@@ -312,7 +314,7 @@
                     </article>
                     <article class="portfolio-card group relative overflow-hidden rounded-[2rem]">
                         <img src="imagens/cases/voz-1.jpg" alt="Automação com voz e inteligência aplicada" class="h-[430px] w-full object-cover transition duration-500 group-hover:scale-105">
-                        <div class="absolute inset-x-0 bottom-0 p-7">
+                        <div class="portfolio-copy absolute inset-x-0 bottom-0 p-7">
                             <span class="mb-2 block text-xs font-bold uppercase tracking-[0.24em] text-cyan">IA aplicada</span>
                             <h3 class="font-headline text-2xl font-bold">Automação com voz e inteligência</h3>
                             <p class="mt-2 text-sm leading-relaxed text-white/72">Fluxos com transcrição, apoio operacional e leitura de dados para equipes que precisam ganhar tempo.</p>
@@ -371,8 +373,8 @@
     </main>
 
     <a class="whatsapp-fab fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:scale-105" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20IzziHub." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-        <svg class="h-9 w-9 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M.057 24l1.687-6.163C.703 16.033.156 13.988.156 11.891.156 5.331 5.494 0 12.049 0c3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.561-5.338 11.892-11.893 11.892-1.99 0-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.946 1.694 5.492l-.936 3.422 3.52-.921z"></path>
+        <svg class="h-8 w-8 fill-current" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 8.004 0C3.58 0 0 3.58 0 8.004a7.97 7.97 0 0 0 1.14 4.111L0 16l4.01-1.052a7.97 7.97 0 0 0 3.994 1.071h.003A7.997 7.997 0 0 0 16 8.018a7.85 7.85 0 0 0-2.399-5.692zM8.007 14.66h-.002a6.62 6.62 0 0 1-3.374-.924l-.242-.144-2.38.624.635-2.32-.157-.238a6.61 6.61 0 0 1-1.022-3.536c0-3.654 2.975-6.629 6.635-6.629a6.59 6.59 0 0 1 4.691 1.944 6.59 6.59 0 0 1 1.939 4.694c-.001 3.654-2.975 6.629-6.623 6.629zm3.636-4.974c-.198-.099-1.173-.579-1.355-.645-.182-.066-.314-.099-.446.1-.132.198-.512.645-.628.777-.115.132-.23.148-.429.05-.198-.1-.838-.308-1.596-.981-.59-.526-.99-1.173-1.106-1.372-.115-.198-.012-.304.087-.402.09-.09.198-.231.297-.347.1-.116.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.1-.446-1.074-.611-1.471-.161-.387-.325-.335-.446-.341a7.03 7.03 0 0 0-.38-.006c-.132 0-.347.05-.528.248-.182.198-.694.678-.694 1.652 0 .975.711 1.917.81 2.049.1.132 1.398 2.136 3.387 2.994.473.205.842.327 1.13.418.474.15.905.129 1.246.078.38-.057 1.174-.479 1.339-.942.165-.463.165-.86.116-.942-.05-.083-.182-.132-.38-.231z"></path>
         </svg>
     </a>
 
