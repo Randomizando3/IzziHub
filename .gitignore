@@ -1,1 +1,12 @@
-.vs
+.vs/
+_deploy/
+_server_backups/
+IZZIHUB_ACESSOS_E_PENDENCIAS.txt
+imagens/logo-izzihub-512.png
+imagens/og-izzihub-1200.png
+imagens/placeholder-app.jpg
+imagens/placeholder-branding.jpg
+imagens/placeholder-dashboard.jpg
+imagens/placeholder-desktop.jpg
+imagens/placeholder-ecommerce.jpg
+imagens/placeholder-landing.jpg

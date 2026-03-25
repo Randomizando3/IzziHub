@@ -1,366 +1,198 @@
-<?php
-// Mostrar erros enquanto estiver testando (depois pode desativar)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Importa as classes do PHPMailer no escopo global
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Inclui os arquivos do PHPMailer (ajusta o caminho se a pasta for diferente)
-require __DIR__ . '/phpmailer/PHPMailer.php';
-require __DIR__ . '/phpmailer/SMTP.php';
-require __DIR__ . '/phpmailer/Exception.php';
-
-// Config de feedback
-$feedbackSuccess = false;
-$feedbackError   = '';
-
-// Se vier de um redirect com status na URL, tratamos aqui
-if (isset($_GET['s']) && $_GET['s'] === 'ok') {
-    $feedbackSuccess = true;
-}
-
-// Processa envio do formulário (apenas no POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitiza dados básicos
-    $nome     = trim($_POST['nome'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
-    $tipo     = trim($_POST['tipo'] ?? '');
-    $mensagem = trim($_POST['mensagem'] ?? '');
-
-    if ($nome !== '' && $email !== '' && $mensagem !== '') {
-        $mail = new PHPMailer(true);
-
-        try {
-            // ========== SMTP TITAN (software@showdeimagem.com.br) ==========
-            $fromEmail    = 'software@showdeimagem.com.br';   // MESMO usuário do Titan
-            $fromPassword = 'software_Show2024';
-
-            // $mail->SMTPDebug = 2; // DESCOMENTA para ver log detalhado na tela
-
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.titan.email';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = $fromEmail;
-            $mail->Password   = $fromPassword;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
-            $mail->CharSet    = 'UTF-8';
-
-            // De / Para
-            $mail->setFrom($fromEmail, 'Site IzziHub');
-
-            // E-mail que vai receber (no seu servidor)
-            $mail->addAddress('contato@izzihub.com.br', 'IzziHub');
-
-            // Responder direto para quem preencheu o formulário
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $mail->addReplyTo($email, $nome);
-            }
-
-            // Conteúdo
-            $mail->isHTML(true);
-            $mail->Subject = 'Novo contato pelo site IzziHub';
-
-            $bodyText = "Você recebeu uma nova mensagem do formulário de contato do site.\n\n"
-                . "Nome: {$nome}\n"
-                . "E-mail: {$email}\n"
-                . "Tipo de projeto: {$tipo}\n\n"
-                . "Mensagem:\n{$mensagem}\n";
-
-            $mail->Body    = nl2br(htmlspecialchars($bodyText, ENT_QUOTES, 'UTF-8'));
-            $mail->AltBody = $bodyText;
-
-            $mail->send();
-
-            // ✅ SUCESSO: redireciona para evitar reenvio no refresh
-            header('Location: ' . $_SERVER['PHP_SELF'] . '?s=ok');
-            exit;
-        } catch (Exception $e) {
-            // Falha no envio: mostra erro na mesma requisição
-            $feedbackSuccess = false;
-            $feedbackError   = $mail->ErrorInfo;
-        }
-    } else {
-        $feedbackSuccess = false;
-        $feedbackError   = 'Por favor, preencha todos os campos obrigatórios.';
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <title>IzziHub • Agência de Publicidade e Software em São Paulo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desenvolvimento de sistemas web e aplicativos | IzziHub</title>
+    <meta name="description" content="Desenvolvimento de sistemas web, landing pages de alta conversao, dashboards e aplicativos iOS e Android para empresas que querem vender mais e operar melhor.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#f7f4ef">
+    <link rel="canonical" href="https://izzihub.com.br/">
+    <link rel="icon" href="imagens/favicon.ico" sizes="any">
+    <link rel="icon" href="imagens/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- SEO básico -->
-    <meta name="description" content="IzziHub é uma agência de publicidade e desenvolvimento de software em São Paulo. Criamos marcas, sites, aplicativos e sistemas sob medida e soluções prontas para restaurantes, igrejas e associações.">
-    <meta name="keywords" content="IzziHub, agência de publicidade, agência digital, desenvolvimento de software, criação de sites, criação de aplicativos, sistema para restaurante, sistema para igreja, sistemas sob medida, marketing digital, São Paulo">
-    <meta name="robots" content="index,follow" />
-
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="IzziHub • Agência de Publicidade e Software em São Paulo">
-    <meta property="og:description" content="Agência de publicidade e software que cria marcas, sites, apps e sistemas sob medida para o seu negócio.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.izzihub.com.br/">
-    <meta property="og:image" content="imagens/og-izzihub-1200.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Sistemas web e apps para escalar vendas | IzziHub">
+    <meta property="og:description" content="Landing pages, sistemas web, apps iOS e Android e integracoes para empresas que querem aumentar conversao e ticket medio.">
+    <meta property="og:url" content="https://izzihub.com.br/">
+    <meta property="og:image" content="https://izzihub.com.br/imagens/logo.png">
 
-    <!-- Structured Data (JSON-LD) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sistemas web e apps para escalar vendas | IzziHub">
+    <meta name="twitter:description" content="Desenvolvimento focado em conversao, operacao e crescimento.">
+    <meta name="twitter:image" content="https://izzihub.com.br/imagens/logo.png">
+
     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "IzziHub",
+      "url": "https://izzihub.com.br/",
+      "image": "https://izzihub.com.br/imagens/logo.png",
+      "description": "Desenvolvimento de sistemas web, landing pages de alta conversao, dashboards e aplicativos iOS e Android.",
+      "telephone": "+55-11-98258-0565",
+      "email": "contato@izzihub.com.br",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+55-11-98258-0565",
+        "contactType": "sales",
+        "availableLanguage": ["Portuguese"]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
         {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "IzziHub",
-          "url": "https://www.izzihub.com.br/",
-          "logo": "imagens/logo-izzihub-512.png",
-          "description": "Agência de publicidade e desenvolvimento de software em São Paulo, especializada em branding, sites, aplicativos e sistemas sob medida.",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "São Paulo",
-            "addressRegion": "SP",
-            "addressCountry": "BR"
-          },
-          "sameAs": [
-            "https://www.instagram.com/seu_perfil",
-            "https://www.linkedin.com/in/seu_perfil"
-          ]
+          "@type": "Question",
+          "name": "A IzziHub faz apenas sites ou tambem sistemas completos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fazemos landing pages, sistemas web sob medida, paines administrativos, integracoes e aplicativos para Android e iPhone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vocês conseguem desenvolver MVP para validar uma ideia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Podemos comecar por um MVP enxuto para validar o modelo, acelerar o lancamento e reduzir risco antes de expandir o produto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A landing page pode ser pensada para Google Ads?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. A estrutura desta oferta ja foi posicionada para trafego pago, com copy mais direta, CTA recorrente, foco em intencao comercial e SEO tecnico consistente."
+          }
         }
+      ]
+    }
     </script>
 
-    <!-- Fonte Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- CSS principal -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page">
-        <!-- NAVBAR -->
-        <header>
+    <a class="skip-link" href="#conteudo">Pular para o conteudo</a>
+
+    <div class="page-shell">
+        <header class="site-header">
             <div class="container">
-                <nav class="nav">
-                    <a href="#top" class="nav-brand">
-                        <img src="imagens/logo.png" alt="Logo IzziHub" class="logo-mark">
-                        <div>
-                            <div class="logo-text-title">IzziHub</div>
-                            <div class="logo-text-sub">Publicidade & Software Studio</div>
+                <nav class="nav" aria-label="Principal">
+                    <a class="brand" href="#topo" aria-label="IzziHub">
+                        <img class="brand-logo" src="imagens/logo.png" alt="Logo IzziHub" width="40" height="40">
+                        <div class="brand-copy">
+                            <strong>IzziHub</strong>
+                            <span>Sistemas web + apps</span>
                         </div>
                     </a>
 
-                    <button class="nav-toggle" aria-label="Menu">
+                    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu">
                         <span></span>
                     </button>
 
-                    <div class="nav-links-wrapper">
+                    <div class="nav-panel" id="menu">
                         <div class="nav-links">
-                            <a href="#servicos">Serviços</a>
-                            <a href="#solucoes">Soluções</a>
-                            <!-- <a href="#portfolio">Cases</a>  Cases ocultos por enquanto -->
+                            <a href="#solucoes">Solucoes</a>
+                            <a href="#vantagens">Vantagens</a>
                             <a href="#processo">Processo</a>
-                            <a href="#sobre">Sobre</a>
-                            <a href="#contato">Contato</a>
+                            <a href="#faq">FAQ</a>
                         </div>
-                        <button class="nav-cta" onclick="scrollToSection('contato')">
-                            <span>⚡</span> Orçamento
-                        </button>
+                        <a class="nav-cta" href="https://wa.me/5511982580565?text=Quero%20falar%20sobre%20um%20sistema%20ou%20app" target="_blank" rel="noopener">
+                            Falar no WhatsApp
+                        </a>
                     </div>
                 </nav>
             </div>
         </header>
 
-        <main id="top">
-            <!-- HERO -->
-            <section class="hero">
+        <main id="conteudo">
+            <section class="hero" id="topo">
                 <div class="container hero-grid">
-                    <div class="hero-left reveal">
-                        <div class="pill">
-                            <span class="pill-dot"></span>
-                            <span>Agência & Dev Studio</span>
-                        </div>
-                        <h1>
-                            Criamos <span>marcas, sites e apps</span> que conversam com pessoas de verdade.
-                        </h1>
-                        <p class="hero-sub">
-                            A IzziHub une publicidade, design e programação. Do visual das campanhas ao código dos sistemas, tudo em um só lugar.
+                    <div class="hero-copy reveal">
+                        <span class="eyebrow">Landing focada em alta intencao comercial</span>
+                        <h1>Sistemas web e aplicativos para empresas que querem vender mais e operar melhor.</h1>
+                        <p class="hero-text">
+                            Criamos landing pages para Google Ads, sistemas internos, dashboards, areas do cliente e apps iOS e Android.
+                            O foco e simples: gerar demanda qualificada, organizar a operacao e abrir espaco para cobrar tickets maiores.
                         </p>
 
-                        <div class="hero-badges">
-                            <div class="badge"><strong>Branding</strong> & campanhas</div>
-                            <div class="badge"><strong>Web & Apps</strong> sob medida</div>
-                            <div class="badge"><strong>Soluções prontas:</strong> restaurante, igreja, associações...</div>
+                        <div class="hero-chips">
+                            <span>MVPs e produtos sob medida</span>
+                            <span>Android + iPhone</span>
+                            <span>Integracoes, APIs e automacoes</span>
                         </div>
 
                         <div class="hero-actions">
-                            <button class="btn btn-primary" onclick="scrollToSection('contato')">
-                                Quero falar da minha ideia <span class="btn-icon">→</span>
-                            </button>
-                            <button class="btn btn-ghost" onclick="scrollToSection('solucoes')">
-                                Ver soluções prontas
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- LADO DIREITO: BANNER -->
-                    <div class="hero-right reveal">
-                        <div class="hero-image-wrapper">
-                            <img src="imagens/banner1.png" alt="Painel digital e soluções da IzziHub" class="hero-image">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SERVIÇOS -->
-            <section id="servicos">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">O que fazemos</div>
-                            <h2 class="section-title">Serviços <span>sob medida</span> para a sua marca</h2>
-                        </div>
-                    </div>
-
-                    <div class="services-grid">
-                        <div class="card reveal">
-                            <div class="card-icon">🎨</div>
-                            <h3>Branding & Publicidade</h3>
-                            <p>
-                                Logotipo, identidade visual e materiais para redes sociais e anúncios.
-                            </p>
-                            <div class="card-tags">
-                                <span class="tag">Identidade Visual</span>
-                                <span class="tag">Social Media</span>
-                                <span class="tag">Anúncios</span>
-                            </div>
-                            <a class="card-link" href="#sobre">
-                                Ver mais sobre o estilo <span>↗</span>
+                            <a class="btn btn-primary" href="https://wa.me/5511982580565?text=Quero%20um%20orcamento%20para%20sistema%20web%20ou%20app" target="_blank" rel="noopener">
+                                Pedir orcamento no WhatsApp
                             </a>
+                            <a class="btn btn-secondary" href="#solucoes">Ver o que podemos construir</a>
                         </div>
 
-                        <div class="card reveal">
-                            <div class="card-icon">💻</div>
-                            <h3>Desenvolvimento Web & Apps</h3>
-                            <p>
-                                Sites, landings, painéis administrativos, APIs e aplicativos.
-                            </p>
-                            <div class="card-tags">
-                                <span class="tag">Sites responsivos</span>
-                                <span class="tag">Dashboards</span>
-                                <span class="tag">Aplicativos</span>
-                            </div>
-                            <a class="card-link" href="#processo">
-                                Ver como trabalhamos <span>↗</span>
-                            </a>
-                        </div>
-
-                        <div class="card reveal">
-                            <div class="card-icon">⚙️</div>
-                            <h3>Integração & Automação</h3>
-                            <p>
-                                Integrações de pagamento, automações de atendimento e APIs.
-                            </p>
-                            <div class="card-tags">
-                                <span class="tag">APIs</span>
-                                <span class="tag">Pagamentos</span>
-                                <span class="tag">Automação</span>
-                            </div>
-                            <a class="card-link" href="#contato">
-                                Falar sobre integrações <span>↗</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SOLUÇÕES PRONTAS -->
-            <section id="solucoes">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">Para ir mais rápido</div>
-                            <h2 class="section-title">Soluções <span>já predefinidas</span></h2>
-                        </div>
+                        <ul class="hero-points" aria-label="Diferenciais">
+                            <li>Arquitetura pensada para crescer sem depender de planilha.</li>
+                            <li>Landing pages alinhadas com oferta, trafego e conversao.</li>
+                            <li>Apps e sistemas com foco em processo, venda e recorrencia.</li>
+                        </ul>
                     </div>
 
-                    <div class="solutions-grid">
-                        <div class="solution-card reveal">
-                            <div class="solution-image">
-                                <img src="imagens/placeholder-restaurante.jpg" alt="Sistema para restaurantes - IzziHub">
-                                <div class="solution-tag">Delivery, salão & comandas</div>
-                            </div>
-                            <div class="solution-body">
-                                <h3>Hub Restaurante</h3>
-                                <p>
-                                    Sistema para cardápio, mesas, comandas, pedidos e relatórios de vendas.
-                                </p>
-                                <div class="solution-meta">
-                                    • Painel web<br>
-                                    • Telas para balcão/garçom<br>
-                                    • Impressão de cozinha
+                    <div class="hero-panel reveal" aria-hidden="true">
+                        <div class="panel-frame">
+                            <div class="panel-window">
+                                <div class="panel-topbar">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                 </div>
-                                <div class="solution-cta">
-                                    <div>
-                                        <div class="solution-price">Licença + mensalidade</div>
-                                        <small>Personalização visual incluída</small>
-                                    </div>
-                                    <button class="btn btn-ghost" onclick="scrollToSection('contato')">
-                                        Quero detalhes
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="solution-card reveal">
-                            <div class="solution-image">
-                                <img src="imagens/placeholder-igreja.jpg" alt="Sistema para igrejas - IzziHub">
-                                <div class="solution-tag">Membros & celebrações</div>
-                            </div>
-                            <div class="solution-body">
-                                <h3>Hub Igreja</h3>
-                                <p>
-                                    Gestão de membros, eventos, escalas e comunicação com a comunidade.
-                                </p>
-                                <div class="solution-meta">
-                                    • Área administrativa<br>
-                                    • Portal de membros<br>
-                                    • Comunicação segmentada
-                                </div>
-                                <div class="solution-cta">
-                                    <div>
-                                        <div class="solution-price">Pacotes sob consulta</div>
-                                        <small>Ideal para igrejas em crescimento</small>
+                                <div class="panel-body">
+                                    <div class="panel-card panel-card-main">
+                                        <small>Painel de crescimento</small>
+                                        <strong>Landing + CRM + automacao</strong>
+                                        <p>Capte leads, distribua atendimento e acompanhe funil em um unico fluxo.</p>
                                     </div>
-                                    <button class="btn btn-ghost" onclick="scrollToSection('contato')">
-                                        Saber mais
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="solution-card reveal">
-                            <div class="solution-image">
-                                <img src="imagens/placeholder-associacoes.jpg" alt="Sistema para associações e clubes - IzziHub">
-                                <div class="solution-tag">Associações, clubes & studios</div>
-                            </div>
-                            <div class="solution-body">
-                                <h3>Hub Associações</h3>
-                                <p>
-                                    Controle de associados, mensalidades, agendamentos e área do cliente.
-                                </p>
-                                <div class="solution-meta">
-                                    • Painel de gestão<br>
-                                    • Área do associado<br>
-                                    • Relatórios simples
-                                </div>
-                                <div class="solution-cta">
-                                    <div>
-                                        <div class="solution-price">Implantação rápida</div>
-                                        <small>Customizável por segmento</small>
+                                    <div class="panel-stats">
+                                        <div class="mini-card">
+                                            <span>Entrega</span>
+                                            <strong>MVP em semanas</strong>
+                                        </div>
+                                        <div class="mini-card">
+                                            <span>Plataformas</span>
+                                            <strong>Web, iOS e Android</strong>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-ghost" onclick="scrollToSection('contato')">
-                                        Ver possibilidades
-                                    </button>
+
+                                    <div class="panel-list">
+                                        <div class="list-row">
+                                            <span>Landing page para ads</span>
+                                            <b>Pronta para conversao</b>
+                                        </div>
+                                        <div class="list-row">
+                                            <span>Sistema web</span>
+                                            <b>Login, painel, operacao</b>
+                                        </div>
+                                        <div class="list-row">
+                                            <span>Aplicativo</span>
+                                            <b>Push, area do cliente, recorrencia</b>
+                                        </div>
+                                        <div class="list-row">
+                                            <span>Integracoes</span>
+                                            <b>API, pagamentos e automacao</b>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -368,358 +200,227 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </section>
 
-            <!-- PORTFÓLIO / CASES (OCULTO POR ENQUANTO) -->
-            <section id="portfolio" style="display:none;">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">Portfólio</div>
-                            <h2 class="section-title">Cases e <span>projetos digitais</span></h2>
-                        </div>
+            <section class="section trust-strip">
+                <div class="container trust-grid reveal">
+                    <div>
+                        <strong>Oferta mais clara para Ads</strong>
+                        <span>Mensagem orientada a sistema, app e resultado comercial.</span>
                     </div>
-
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-landing.jpg" alt="Landing page para campanha de lançamento - IzziHub">
-                                <div class="portfolio-label">Landing + Campanha</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Campanha de lançamento</h3>
-                                <p>Landing page + criativos para captar leads qualificados.</p>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-dashboard.jpg" alt="Dashboard web personalizado - IzziHub">
-                                <div class="portfolio-label">Sistema Web</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Painel de gestão para PME</h3>
-                                <p>Dashboard com indicadores, clientes e relatórios.</p>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-app.jpg" alt="Aplicativo mobile sob medida - IzziHub">
-                                <div class="portfolio-label">App Mobile</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Aplicativo de agendamentos</h3>
-                                <p>App com notificações e integração com calendário.</p>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-branding.jpg" alt="Identidade visual completa para marca - IzziHub">
-                                <div class="portfolio-label">Branding</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Identidade visual</h3>
-                                <p>Logo, paleta de cores, tipografia e aplicações.</p>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-ecommerce.jpg" alt="Layout para loja virtual - IzziHub">
-                                <div class="portfolio-label">E-commerce</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Loja virtual</h3>
-                                <p>Layout otimizado para campanhas de tráfego pago.</p>
-                            </div>
-                        </div>
-
-                        <div class="portfolio-item reveal">
-                            <div class="portfolio-thumb">
-                                <img src="imagens/placeholder-desktop.jpg" alt="Sistema desktop personalizado - IzziHub">
-                                <div class="portfolio-label">Desktop</div>
-                            </div>
-                            <div class="portfolio-body">
-                                <h3>Sistema interno</h3>
-                                <p>Solução desktop integrada com banco de dados na nuvem.</p>
-                            </div>
-                        </div>
+                    <div>
+                        <strong>Ticket medio maior</strong>
+                        <span>Mais foco em produto digital, operacao e crescimento.</span>
                     </div>
-
-                    <div class="portfolio-more reveal">
-                        <button type="button" class="btn btn-ghost" onclick="scrollToSection('contato')">
-                            Ver mais projetos e cases
-                        </button>
+                    <div>
+                        <strong>Menos spam</strong>
+                        <span>Formulario removido e CTA centralizado em WhatsApp.</span>
                     </div>
                 </div>
             </section>
 
-            <!-- TIER CASES (OCULTO PARA FUTURO) -->
-            <section id="tier-cases" style="display:none;">
+            <section class="section" id="solucoes">
                 <div class="container">
-                    <div class="section-header">
-                        <div>
-                            <div class="section-kicker">Tiers de Cases</div>
-                            <h2 class="section-title">Pacotes de <span>cases e entregas</span></h2>
-                        </div>
+                    <div class="section-heading reveal">
+                        <span class="eyebrow">O que a IzziHub entrega</span>
+                        <h2>Projetos que geram demanda, organizam processo e sustentam crescimento.</h2>
+                        <p>
+                            Em vez de vender "site bonito", a proposta agora e resolver problema de negocio com software, experiencia e estrutura comercial mais forte.
+                        </p>
                     </div>
 
-                    <div class="tiers-grid">
-                        <article class="tier-card">
-                            <h3>Starter</h3>
-                            <p>Ideal para quem está começando e quer um primeiro case bem estruturado.</p>
+                    <div class="solution-grid">
+                        <article class="solution-card reveal">
+                            <span class="solution-tag">Google Ads + conversao</span>
+                            <h3>Landing pages para trafego pago</h3>
+                            <p>Paginas enxutas, com copy comercial, CTA forte, carregamento limpo e estrutura pronta para campanhas.</p>
                             <ul>
-                                <li>1 landing page</li>
-                                <li>Peças para redes sociais</li>
-                                <li>Relatório simples de resultados</li>
+                                <li>Oferta orientada a intencao de compra</li>
+                                <li>CTA recorrente e rastreavel</li>
+                                <li>SEO tecnico para base organica</li>
                             </ul>
                         </article>
 
-                        <article class="tier-card">
-                            <h3>Growth</h3>
-                            <p>Para marcas que já têm tração e precisam de um pacote de cases mais robusto.</p>
+                        <article class="solution-card reveal">
+                            <span class="solution-tag">Processo + operacao</span>
+                            <h3>Sistemas web sob medida</h3>
+                            <p>Paineis administrativos, areas do cliente, CRMs internos, sistemas de atendimento e plataformas operacionais.</p>
                             <ul>
-                                <li>Landing + mini-site</li>
-                                <li>Pacote completo de criativos</li>
-                                <li>Dashboard de acompanhamento</li>
+                                <li>Login, niveis de acesso e dashboard</li>
+                                <li>Fluxos internos e integracoes com API</li>
+                                <li>Base para escala e previsibilidade</li>
                             </ul>
                         </article>
 
-                        <article class="tier-card">
-                            <h3>Custom</h3>
-                            <p>Pacote totalmente sob medida, alinhado aos seus objetivos específicos.</p>
+                        <article class="solution-card reveal">
+                            <span class="solution-tag">Recorrencia + engajamento</span>
+                            <h3>Aplicativos iOS e Android</h3>
+                            <p>Apps para operacao, experiencia do cliente, assinatura, agenda, notificacao e relacionamento continuo.</p>
                             <ul>
-                                <li>Escopo personalizado</li>
-                                <li>Integrações específicas</li>
-                                <li>Relatórios e apresentações de case</li>
+                                <li>Experiencia mobile com foco no uso real</li>
+                                <li>Publicacao e evolucao por fases</li>
+                                <li>Integra com seu sistema e seu time</li>
+                            </ul>
+                        </article>
+
+                        <article class="solution-card reveal">
+                            <span class="solution-tag">Automacao</span>
+                            <h3>Integracoes e orquestracao</h3>
+                            <p>Pagamentos, ERPs, webhooks, bots, CRM, WhatsApp, paines e bases conectadas em um fluxo unico.</p>
+                            <ul>
+                                <li>Reduz retrabalho manual</li>
+                                <li>Centraliza informacao</li>
+                                <li>Melhora tempo de resposta</li>
                             </ul>
                         </article>
                     </div>
                 </div>
             </section>
 
-            <!-- PROCESSO -->
-            <section id="processo">
+            <section class="section section-alt" id="vantagens">
                 <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">Fluxo de trabalho</div>
-                            <h2 class="section-title">Um processo <span>claro e sem surpresas</span></h2>
-                        </div>
+                    <div class="section-heading reveal">
+                        <span class="eyebrow">Por que esta landing foi reposicionada</span>
+                        <h2>Mais aderencia a servicos de maior valor.</h2>
+                    </div>
+
+                    <div class="advantage-grid">
+                        <article class="advantage-card reveal">
+                            <strong>Mais alinhamento com busca comercial</strong>
+                            <p>Quem procura sistema, dashboard, app ou landing para Ads chega mais perto da compra do que quem procura "site" de forma generica.</p>
+                        </article>
+                        <article class="advantage-card reveal">
+                            <strong>Menos friccao no contato</strong>
+                            <p>Sem formulario, sem spam e com um caminho claro para conversa comercial no WhatsApp.</p>
+                        </article>
+                        <article class="advantage-card reveal">
+                            <strong>Oferta mais premium</strong>
+                            <p>O discurso sai de material institucional e entra em produto digital, processo, automacao e crescimento.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="processo">
+                <div class="container process-layout">
+                    <div class="section-heading reveal">
+                        <span class="eyebrow">Como conduzimos o projeto</span>
+                        <h2>Da ideia ao produto com escopo claro e proximos passos definidos.</h2>
                     </div>
 
                     <div class="process-grid">
-                        <div class="reveal">
-                            <div class="timeline">
-                                <div class="step">
-                                    <div class="step-title">
-                                        <span>01</span> Descoberta & briefing
-                                    </div>
-                                    <p>Entendemos seu contexto, objetivos e prazos.</p>
-                                </div>
-                                <div class="step">
-                                    <div class="step-title">
-                                        <span>02</span> Proposta & protótipo
-                                    </div>
-                                    <p>Enviamos escopo, investimento e, se fizer sentido, telas-chave.</p>
-                                </div>
-                                <div class="step">
-                                    <div class="step-title">
-                                        <span>03</span> Design & desenvolvimento
-                                    </div>
-                                    <p>Layout, código, integrações e testes em ambiente seguro.</p>
-                                </div>
-                                <div class="step">
-                                    <div class="step-title">
-                                        <span>04</span> Ajustes, publicação & suporte
-                                    </div>
-                                    <p>Refinamos, publicamos e acompanhamos o início do uso.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <aside class="process-side reveal">
-                            <div class="process-stat">
-                                <span>Tempo médio de um projeto enxuto</span>
-                                <span>2–4 semanas</span>
-                            </div>
-                            <div class="process-stat">
-                                <span>Formato</span>
-                                <span>Remoto ou presencial</span>
-                            </div>
-                            <p style="font-size:.8rem;color:var(--muted);margin-top:.5rem;">
-                                Atendemos de segunda a sexta, das 9h às 17h, com agenda combinada.
-                            </p>
-                        </aside>
+                        <article class="process-card reveal">
+                            <span>01</span>
+                            <h3>Diagnostico e objetivo comercial</h3>
+                            <p>Entendemos a oferta, o gargalo atual, o publico e qual etapa precisa gerar mais resultado.</p>
+                        </article>
+                        <article class="process-card reveal">
+                            <span>02</span>
+                            <h3>Estrutura do MVP ou da fase inicial</h3>
+                            <p>Definimos o minimo que precisa ir para o ar para validar, vender ou organizar a operacao.</p>
+                        </article>
+                        <article class="process-card reveal">
+                            <span>03</span>
+                            <h3>Design, construcao e integracoes</h3>
+                            <p>Layout, front-end, back-end, APIs, automacoes e testes em um fluxo objetivo.</p>
+                        </article>
+                        <article class="process-card reveal">
+                            <span>04</span>
+                            <h3>Lancamento e evolucao</h3>
+                            <p>Publicamos, medimos o uso e priorizamos a proxima fase com base no que faz sentido para o negocio.</p>
+                        </article>
                     </div>
                 </div>
             </section>
 
-            <!-- SOBRE -->
-            <section id="sobre">
-                <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">Quem está por trás</div>
-                            <h2 class="section-title">Sobre a <span>IzziHub</span></h2>
-                        </div>
+            <section class="section section-cta">
+                <div class="container cta-box reveal">
+                    <div>
+                        <span class="eyebrow">Pronto para um projeto mais robusto?</span>
+                        <h2>Se a ideia precisa vender, automatizar ou escalar, faz sentido conversar agora.</h2>
+                        <p>Atendimento remoto para todo o Brasil e alinhamento inicial direto pelo WhatsApp.</p>
                     </div>
-
-                    <div class="about-grid">
-                        <div class="reveal">
-                            <p style="font-size:.9rem;color:var(--muted);margin-top:0;">
-                                A IzziHub é um hub que conecta design, publicidade e desenvolvimento. Um ponto único para cuidar tanto da comunicação quanto da tecnologia do seu negócio.
-                            </p>
-                            <p style="font-size:.9rem;color:var(--muted);">
-                                Focamos em pequenos negócios, igrejas, criadores de conteúdo e empresas que querem soluções objetivas, com visual atual e funcionamento redondo.
-                            </p>
-                            <div style="margin-top:1rem;margin-bottom:.5rem;font-size:.82rem;color:var(--muted);">
-                                Principais frentes:
-                            </div>
-                            <div class="pill-list">
-                                <span>Branding & identidade visual</span>
-                                <span>Social media e campanhas</span>
-                                <span>Sites e landing pages</span>
-                                <span>Sistemas web</span>
-                                <span>Aplicativos mobile</span>
-                                <span>Soluções desktop</span>
-                                <span>Sistemas pré-prontos adaptáveis</span>
-                            </div>
-                        </div>
-
-                        <div class="about-card reveal">
-                            <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;">
-                                Um pouco do que você pode esperar:
-                            </div>
-                            <div class="about-rows">
-                                <div class="about-row">
-                                    <span>Estilo visual</span>
-                                    <strong>Moderno, limpo e leve</strong>
-                                </div>
-                                <div class="about-row">
-                                    <span>Comunicação</span>
-                                    <strong>Direta e sem enrolação</strong>
-                                </div>
-                                <div class="about-row">
-                                    <span>Prazos</span>
-                                    <strong>Alinhados antes de começar</strong>
-                                </div>
-                                <div class="about-row">
-                                    <span>Suporte</span>
-                                    <strong>Período pós-entrega combinado</strong>
-                                </div>
-                                <div class="about-row">
-                                    <span>Forma de trabalho</span>
-                                    <strong>Remoto ou presencial, das 9h às 17h</strong>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="cta-actions">
+                        <a class="btn btn-primary" href="https://wa.me/5511982580565?text=Quero%20falar%20sobre%20um%20sistema%20web%2C%20landing%20page%20ou%20app" target="_blank" rel="noopener">
+                            Chamar no WhatsApp
+                        </a>
+                        <a class="btn btn-secondary" href="mailto:contato@izzihub.com.br">Enviar e-mail</a>
                     </div>
                 </div>
             </section>
 
-            <!-- CONTATO -->
-            <section id="contato">
+            <section class="section" id="faq">
                 <div class="container">
-                    <div class="section-header reveal">
-                        <div>
-                            <div class="section-kicker">Próximo passo</div>
-                            <h2 class="section-title">Vamos <span>tirar sua ideia do papel</span>?</h2>
-                        </div>
+                    <div class="section-heading reveal">
+                        <span class="eyebrow">FAQ</span>
+                        <h2>Perguntas comuns antes de contratar.</h2>
                     </div>
 
-                    <div class="contact-grid">
-                        <div class="reveal">
-                            <!-- Formulário POST para o próprio index.php -->
-                            <form method="post" action="">
-                                <div class="field">
-                                    <label for="nome">Nome</label>
-                                    <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required>
-                                </div>
-                                <div class="field">
-                                    <label for="email">E-mail</label>
-                                    <input id="email" name="email" type="email" placeholder="voce@exemplo.com" required>
-                                </div>
-                                <div class="field">
-                                    <label for="tipo">Que tipo de projeto?</label>
-                                    <select id="tipo" name="tipo" required>
-                                        <option value="">Selecione uma opção</option>
-                                        <option value="branding">Branding / identidade visual</option>
-                                        <option value="social">Social media / campanhas</option>
-                                        <option value="site">Site / landing page</option>
-                                        <option value="sistema">Sistema web / desktop</option>
-                                        <option value="app">Aplicativo mobile</option>
-                                        <option value="solucao-pronta">Solução pronto (restaurante, igreja, etc.)</option>
-                                        <option value="outro">Outro / não sei ainda</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="mensagem">Conte sua ideia em poucas linhas</label>
-                                    <textarea id="mensagem" name="mensagem" placeholder="Fale um pouco sobre o seu negócio, objetivo e se já tem algo em andamento." required></textarea>
-                                </div>
-                                <div class="form-footer">
-                                    <button class="btn btn-primary" type="submit">
-                                        Enviar mensagem <span class="btn-icon">✉️</span>
-                                    </button>
-                                    <span style="font-size:.78rem;color:var(--muted);">
-                                        Atendimento de segunda a sexta, das 9h às 17h.
-                                    </span>
-                                </div>
+                    <div class="faq-list">
+                        <details class="faq-item reveal">
+                            <summary>Vocês fazem apenas o layout ou tambem desenvolvem o sistema completo?</summary>
+                            <p>Desenvolvemos a experiencia completa: descoberta, interface, front-end, back-end, integracoes e estrutura inicial de lancamento.</p>
+                        </details>
+                        <details class="faq-item reveal">
+                            <summary>Consigo comecar por algo menor antes de investir em uma plataforma inteira?</summary>
+                            <p>Sim. Em muitos casos comecamos por uma landing page, um MVP ou um modulo critico para validar a demanda e destravar a proxima fase.</p>
+                        </details>
+                        <details class="faq-item reveal">
+                            <summary>A IzziHub atende quem quer anunciar no Google Ads?</summary>
+                            <p>Sim. Esta pagina foi reposicionada exatamente para isso: atrair leads para projetos de maior valor ligados a conversao, software e operacao.</p>
+                        </details>
+                        <details class="faq-item reveal">
+                            <summary>Vocês constroem apps para Android e iPhone?</summary>
+                            <p>Sim. Planejamos e desenvolvemos aplicativos conectados ao seu negocio, ao seu painel administrativo e aos fluxos do time.</p>
+                        </details>
+                    </div>
+                </div>
+            </section>
 
-                                <!-- Sucesso -->
-                                <div id="form-feedback"
-                                     style="font-size:.8rem;color:#16a34a;margin-top:.5rem;display:<?php echo $feedbackSuccess ? 'block' : 'none'; ?>;">
-                                    Obrigado! Sua mensagem foi enviada com sucesso. Em breve retornaremos pelo e-mail informado.
-                                </div>
+            <section class="section" id="contato">
+                <div class="container contact-panel reveal">
+                    <div class="contact-copy">
+                        <span class="eyebrow">Contato direto</span>
+                        <h2>Fale com a IzziHub sobre sistema web, app ou landing de alta conversao.</h2>
+                        <p>Sem formulario, sem ruido e sem depender de caixa de entrada lotada. O contato principal agora vai direto para WhatsApp.</p>
+                    </div>
 
-                                <!-- Erro -->
-                                <div
-                                     style="font-size:.8rem;color:#dc2626;margin-top:.5rem;display:<?php echo (!$feedbackSuccess && $feedbackError) ? 'block' : 'none'; ?>;">
-                                    Ocorreu um erro ao enviar sua mensagem:
-                                    <?php echo htmlspecialchars($feedbackError, ENT_QUOTES, 'UTF-8'); ?>
-                                </div>
-                            </form>
-                        </div>
-
-                        <aside class="contact-side reveal">
-                            <div><strong>Prefere falar direto?</strong></div>
-                            <div class="contact-channels">
-                                <span>Chame no WhatsApp ou envie um e-mail:</span>
-
-                                <a class="btn-whatsapp" href="https://wa.me/5511982580565" target="_blank" rel="noopener">
-                                    <span class="btn-whatsapp-icon">🟢</span>
-                                    <span class="btn-whatsapp-text">
-                                        Falar pelo WhatsApp · (11) 98258-0565
-                                    </span>
-                                </a>
-
-                                <a href="mailto:contato@izzihub.com.br">
-                                    • contato@izzihub.com.br
-                                </a>
-
-                                <span>Atendimento remoto ou presencial, de segunda a sexta, das 9h às 17h.</span>
-                            </div>
-                        </aside>
+                    <div class="contact-actions">
+                        <a class="contact-button" href="https://wa.me/5511982580565?text=Quero%20receber%20uma%20proposta%20para%20sistema%20ou%20app" target="_blank" rel="noopener">
+                            <span>WhatsApp</span>
+                            <strong>(11) 98258-0565</strong>
+                        </a>
+                        <a class="contact-button contact-button-light" href="mailto:contato@izzihub.com.br">
+                            <span>E-mail</span>
+                            <strong>contato@izzihub.com.br</strong>
+                        </a>
                     </div>
                 </div>
             </section>
         </main>
 
-        <!-- FOOTER -->
-        <footer>
-            <div class="container footer-inner">
-                <div>© <span id="year"></span> IzziHub. Todos os direitos reservados.</div>
+        <footer class="site-footer">
+            <div class="container footer-grid">
+                <div>
+                    <strong>IzziHub</strong>
+                    <p>Landing pages, sistemas web, apps e integracoes para projetos com foco em crescimento.</p>
+                </div>
                 <div class="footer-links">
-                    <a href="#top">Topo</a>
-                    <a href="#servicos">Serviços</a>
-                    <a href="#solucoes">Soluções</a>
-                    <a href="#contato">Contato</a>
+                    <a href="#solucoes">Solucoes</a>
+                    <a href="#vantagens">Vantagens</a>
+                    <a href="#processo">Processo</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-meta">
+                    <span>&copy; <span id="year"></span> IzziHub</span>
+                    <span>Sao Paulo + atendimento remoto</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- JS principal -->
+    <a class="floating-whatsapp" href="https://wa.me/5511982580565?text=Quero%20falar%20sobre%20um%20sistema%20web%20ou%20app" target="_blank" rel="noopener" aria-label="Falar com a IzziHub no WhatsApp">
+        <span>WhatsApp</span>
+    </a>
+
     <script src="script.js"></script>
 </body>
 </html>
