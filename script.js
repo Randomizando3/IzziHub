@@ -1,43 +1,48 @@
+// Tudo só roda depois do DOM carregar
 document.addEventListener("DOMContentLoaded", () => {
-    const year = document.getElementById("year");
-    if (year) {
-        year.textContent = String(new Date().getFullYear());
+    // Scroll suave
+    window.scrollToSection = function (id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    // Ano atual no footer
+    const yearSpan = document.getElementById("year");
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
     }
 
+    // Navegação mobile
     const navToggle = document.querySelector(".nav-toggle");
-    const navPanel = document.querySelector(".nav-panel");
+    const navWrapper = document.querySelector(".nav-links-wrapper");
 
-    if (navToggle && navPanel) {
+    if (navToggle && navWrapper) {
         navToggle.addEventListener("click", () => {
-            const isOpen = navPanel.classList.toggle("is-open");
-            navToggle.classList.toggle("is-open", isOpen);
-            navToggle.setAttribute("aria-expanded", String(isOpen));
+            navToggle.classList.toggle("open");
+            navWrapper.classList.toggle("open");
         });
 
-        navPanel.querySelectorAll("a").forEach((link) => {
+        // Fecha menu ao clicar em link
+        navWrapper.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                navPanel.classList.remove("is-open");
-                navToggle.classList.remove("is-open");
-                navToggle.setAttribute("aria-expanded", "false");
+                navToggle.classList.remove("open");
+                navWrapper.classList.remove("open");
             });
         });
     }
 
-    const revealItems = document.querySelectorAll(".reveal");
-    if ("IntersectionObserver" in window && revealItems.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15
+    // Scroll reveal simples
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
         });
+    }, {
+        threshold: 0.15
+    });
 
-        revealItems.forEach((item) => observer.observe(item));
-    } else {
-        revealItems.forEach((item) => item.classList.add("visible"));
-    }
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 });
