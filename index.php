@@ -451,6 +451,17 @@ $wa = static function (string $source, string $message = ''): string {
                         </div>
                         <p class="mt-5 text-sm leading-relaxed text-muted">Cuida de ilustração, direção visual e animação para deixar interfaces, campanhas e apresentações com mais personalidade e acabamento.</p>
                     </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQEI926qVSH3Dg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1688492430970?e=1776297600&v=beta&t=YzZE6uVNlxSK5t3_6-FsT98gHP0knP5IL2Ov0dIDiiU" alt="Doílio Bolfarini" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">Doílio Bolfarini</h3>
+                                <p class="mt-1 text-sm text-white/70">Desenvolvedor Unity</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Desenvolve experiências interativas em Unity para jogos, ativações e produtos digitais que precisam de mais imersão e movimento.</p>
+                    </article>
                 </div>
             </div>
         </section>
