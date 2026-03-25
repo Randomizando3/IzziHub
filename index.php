@@ -98,7 +98,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(16, 17, 17, 0.96), rgba(16, 17, 17, 0.25), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.58) 46%, rgba(0, 0, 0, 0.1));
         }
         .portfolio-card > * { position: relative; z-index: 1; }
         .whatsapp-fab { box-shadow: 0 18px 45px rgba(37, 211, 102, 0.35); }
@@ -223,19 +223,19 @@
                         <p class="mt-3 text-sm leading-relaxed text-muted">Ideal para restaurantes, hamburguerias e operações que precisam vender sem pagar taxa por pedido a cada canal.</p>
                     </article>
                     <article class="glass-card overflow-hidden rounded-[2rem] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan/20">
-                        <img src="imagens/placeholder-dashboard.jpg" alt="Dashboard de gestão e ERP leve" class="h-44 w-full rounded-2xl object-cover">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBID6H-P3-tYCM5M2W1jEtKlrNL3En8dJ1zTzFwqIwiWRLwVWQYTxk2fY9fKpVH0CIg1ouw-HhTaJImRyjaxkizEQ0kZutwWBlMvnlTkTVHd00j7W_-07ZgjcTJZg6yiUcCsEqZZcBypNS9FI31lN_6uNPUKLPpGuaMkDGnI1rZFUTdE8Vkbh6N0Kk7L2LZxcWDjUVOpQdQh_vJsuZLnNHI7aXnXbjJwzJmxoi3Tq9oJWHnuvfQCH4MrdNYlr_XNQdnxFTOrK1Tse4" alt="Dashboard de gestão e ERP leve" class="h-44 w-full rounded-2xl object-cover">
                         <div class="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-cyan">HubControl</div>
                         <h3 class="mt-3 font-headline text-2xl font-bold">ERP leve com caixa, estoque e visão clara do negócio.</h3>
                         <p class="mt-3 text-sm leading-relaxed text-muted">Painéis simples para donos e equipes que querem parar de operar no improviso e ganhar previsibilidade.</p>
                     </article>
                     <article class="glass-card overflow-hidden rounded-[2rem] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan/20">
-                        <img src="imagens/placeholder-landing.jpg" alt="Sistema de agenda e captação" class="h-44 w-full rounded-2xl object-cover">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgZnHCSzcCF-zXsGLVIo7_JGu9gqI1UwSJBHiws7OmItDi9PqwUtGq1ZJlUJTFpqoRAA1Zl4zp0ccvjVW3akhyyYuF1wHmPnGsdfYVY1J8CBwP7g8P73SdDNGXvnU6y3sFMkwyh8pJfnUE9wADyYkuM4_faJG2WjFUhNpUIBqIXkOe7hKhWHnU1CQvyujE7jegvvT0Ow5_RFXLwOPxh_LNVGEQsRX8an-vA6F849A_EzPPoMdzLQwJzCTyzG8ewxTvvmmschbeMTY" alt="Sistema de agenda e captação" class="h-44 w-full rounded-2xl object-cover">
                         <div class="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-orange">HubAgenda</div>
                         <h3 class="mt-3 font-headline text-2xl font-bold">Agendamento inteligente para serviços e operações locais.</h3>
                         <p class="mt-3 text-sm leading-relaxed text-muted">Fluxos para reduzir faltas, centralizar a agenda e manter o atendimento mais profissional em todos os pontos.</p>
                     </article>
                     <article class="glass-card overflow-hidden rounded-[2rem] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan/20">
-                        <img src="imagens/placeholder-app.jpg" alt="Apps e comunidades digitais de nicho" class="h-44 w-full rounded-2xl object-cover">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlMj0NoaRSXR2PlDvCstW84fn4oz4od97G1aMvg7wPacRiy067_TOdPJO1_u33Fy7-LpIPTSMXhbevOqzrKRx8uDXOpSsm4PSVm2NYDupFQiwWdoyYBK9VtHwWt-0mgAUlPZEfhjQ-JLkWlcF3hiQbzfwaKMVw9OzADgaGMsY9nHevEFSsC_ZbN31Bm_0qAIU5d9XWt8jSgiP8Bb-cEH6qNATCf_8rC8sKgf-zpCgjQsOOkaaNLWQwYWivO4_B_sli9PNvWYX-DDg" alt="Apps e comunidades digitais de nicho" class="h-44 w-full rounded-2xl object-cover">
                         <div class="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-cyan">HubCommunity</div>
                         <h3 class="mt-3 font-headline text-2xl font-bold">Apps de nicho, comunidades e experiências mobile.</h3>
                         <p class="mt-3 text-sm leading-relaxed text-muted">Para quem quer lançar algo próprio, validar recorrência e criar relacionamento direto com a base.</p>
@@ -278,7 +278,7 @@
         <section id="portfolio" class="py-24">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-                    <div class="max-w-2xl">
+                    <div class="max-w-2xl rounded-[2rem] border border-white/10 bg-black/35 px-6 py-6 backdrop-blur-sm">
                         <span class="text-xs font-bold uppercase tracking-[0.24em] text-cyan/80">Portfólio</span>
                         <h2 class="mt-4 font-headline text-4xl font-extrabold md:text-5xl">Alguns projetos que já saíram do papel.</h2>
                         <p class="mt-4 text-base leading-relaxed text-muted">Apps, softwares e produtos digitais com foco em uso real, posicionamento e operação contínua.</p>
