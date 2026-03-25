@@ -19,6 +19,7 @@ $wa = static function (string $source, string $message = ''): string {
     <meta property="og:url" content="https://www.izzihub.com.br/cases.php">
     <meta property="og:image" content="https://www.izzihub.com.br/imagens/og-izzihub-1200.png">
     <link rel="icon" href="imagens/favicon.ico">
+    <?php include __DIR__ . '/includes/google_tag.php'; ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">

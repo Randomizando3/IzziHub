@@ -64,6 +64,7 @@ header('Pragma: no-cache');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Redirecionando para o WhatsApp | IzziHub</title>
     <meta name="robots" content="noindex,nofollow">
+    <?php include __DIR__ . '/includes/google_tag.php'; ?>
     <meta http-equiv="refresh" content="1;url=<?= htmlspecialchars($redirectUrl, ENT_QUOTES, 'UTF-8') ?>">
     <style>
         :root { color-scheme: dark; }
