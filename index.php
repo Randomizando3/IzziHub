@@ -364,6 +364,97 @@ $wa = static function (string $source, string $message = ''): string {
             </div>
         </section>
 
+        <section class="py-24">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold uppercase tracking-[0.24em] text-cyan/80">Nosso time</span>
+                        <h2 class="mt-4 font-headline text-4xl font-extrabold md:text-5xl">Quem conduz os projetos da IzziHub do briefing ao lançamento.</h2>
+                        <p class="mt-4 text-base leading-relaxed text-muted">Você fala com gente de produto, desenvolvimento, design e operação. Um time enxuto, multidisciplinar e próximo do que acontece no projeto todos os dias.</p>
+                    </div>
+                    <div class="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-5 text-sm text-white/75">
+                        Liderança técnica, acompanhamento de entrega e foco real em produto.
+                    </div>
+                </div>
+
+                <div class="grid gap-6 lg:grid-cols-3">
+                    <article class="glass-card overflow-hidden rounded-[2rem] border border-cyan/15 p-7 lg:col-span-3 lg:grid lg:grid-cols-[0.95fr_2fr] lg:items-center lg:gap-8">
+                        <div class="flex items-center gap-5">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D03AQGAYVAE2u-cxA/profile-displayphoto-scale_100_100/B4DZvZVjn2HQAc-/0/1768877866055?e=1776297600&v=beta&t=jAyAoGKfbSE8kQQsof2qkzNWl1jjKEe-bkgO2oteV_Q" alt="Maximiliano Fulco" class="h-24 w-24 rounded-3xl object-cover ring-2 ring-cyan/30" loading="lazy">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-[0.22em] text-cyan">Liderança</span>
+                                <h3 class="mt-2 font-headline text-2xl font-extrabold">Maximiliano Fulco</h3>
+                                <p class="mt-1 text-sm text-white/70">Gerente de Desenvolvimento</p>
+                            </div>
+                        </div>
+                        <div class="mt-5 lg:mt-0">
+                            <p class="text-base leading-relaxed text-white/80">Responsável por direcionar arquitetura, priorização técnica e evolução das entregas. Faz a ponte entre visão de produto, operação e execução para o projeto sair do papel com consistência.</p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs text-white/70">
+                                <span class="rounded-full bg-white/5 px-3 py-1">Arquitetura</span>
+                                <span class="rounded-full bg-white/5 px-3 py-1">Gestão técnica</span>
+                                <span class="rounded-full bg-white/5 px-3 py-1">Produto digital</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://img.freepik.com/free-photo/young-woman-wearing-striped-shirt-eyeglasses_273609-13230.jpg?semt=ais_hybrid&w=740&q=80" alt="Camila Nogueira" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">Camila Nogueira</h3>
+                                <p class="mt-1 text-sm text-white/70">Product Designer</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Transforma briefing em fluxo, interface e experiência visual com foco em clareza, retenção e conversão.</p>
+                    </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://a.storyblok.com/f/191576/1176x882/f95162c213/profile_picture_hero_before.webp" alt="Rafael Monteiro" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">Rafael Monteiro</h3>
+                                <p class="mt-1 text-sm text-white/70">Arquiteto de Software</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Estrutura backend, integrações e decisões de stack para manter o projeto estável, escalável e fácil de evoluir.</p>
+                    </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://media.istockphoto.com/id/1300512215/photo/headshot-portrait-of-smiling-ethnic-businessman-in-office.jpg?s=612x612&w=0&k=20&c=QjebAlXBgee05B3rcLDAtOaMtmdLjtZ5Yg9IJoiy-VY=" alt="André Ribeiro" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">André Ribeiro</h3>
+                                <p class="mt-1 text-sm text-white/70">Especialista em UX e Conversão</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Ajusta jornada, microcopy e pontos de decisão para o sistema ou site performar melhor no uso e na venda.</p>
+                    </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlukVYRYa_xjVUQ0BxY0NGULF5Hq0lCfBUmg&s" alt="Felipe Martins" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">Felipe Martins</h3>
+                                <p class="mt-1 text-sm text-white/70">Engenheiro Mobile</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Cuida do fluxo mobile, performance e acabamento dos apps para iOS e Android desde o MVP até produção.</p>
+                    </article>
+
+                    <article class="glass-card rounded-[2rem] p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="https://img.freepik.com/free-photo/young-woman-wearing-striped-shirt-eyeglasses_273609-13230.jpg?semt=ais_hybrid&w=740&q=80" alt="Juliana Costa" class="h-20 w-20 rounded-3xl object-cover" loading="lazy">
+                            <div>
+                                <h3 class="font-headline text-xl font-bold">Juliana Costa</h3>
+                                <p class="mt-1 text-sm text-white/70">Gestora de Projetos</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-sm leading-relaxed text-muted">Organiza cronograma, alinhamentos e prioridades para a entrega seguir com ritmo, previsibilidade e comunicação clara.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section id="contato" class="py-24">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="overflow-hidden rounded-[2.8rem] border border-white/10 bg-gradient-to-r from-cyan/18 via-cyanDeep/18 to-green/12 px-8 py-14 text-center md:px-16 md:py-20">
