@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>IzziHub • Agência de Publicidade e Software em São Paulo</title>
+    <link rel="icon" href="imagens/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- SEO básico -->
@@ -52,11 +53,7 @@
             <div class="container">
                 <nav class="nav">
                     <a href="#top" class="nav-brand">
-                        <img src="imagens/logo.png" alt="Logo IzziHub" class="logo-mark">
-                        <div>
-                            <div class="logo-text-title">IzziHub</div>
-                            <div class="logo-text-sub">Publicidade & Software Studio</div>
-                        </div>
+                        <img src="imagens/logo.png" height="50" alt="IzziHub - Publicidade &amp; Software Studio">
                     </a>
 
                     <button class="nav-toggle" aria-label="Menu">
@@ -67,7 +64,7 @@
                         <div class="nav-links">
                             <a href="#servicos">Serviços</a>
                             <a href="#solucoes">Soluções</a>
-                            <!-- <a href="#portfolio">Cases</a>  Cases ocultos por enquanto -->
+                            <a href="/cases.php">Cases</a>
                             <a href="#processo">Processo</a>
                             <a href="#sobre">Sobre</a>
                             <a href="#contato">Contato</a>
