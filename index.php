@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . '/includes/whatsapp_tracking.php';
+
+$wa = static function (string $source, string $message = ''): string {
+    return htmlspecialchars(izzihub_whatsapp_url($source, $message), ENT_QUOTES, 'UTF-8');
+};
+?>
 <!DOCTYPE html>
 <html class="dark" lang="pt-BR">
 <head>
@@ -123,7 +130,7 @@
                 <a class="text-sm font-semibold text-white/70 transition hover:text-white" href="#contato">Contato</a>
             </div>
             <div class="hidden md:block">
-                <a class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-6 py-2.5 font-headline text-sm font-bold text-slate-950 transition hover:scale-[1.02]" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20conversar%20sobre%20um%20projeto%20com%20a%20IzziHub." target="_blank" rel="noopener">WhatsApp</a>
+                <a class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-6 py-2.5 font-headline text-sm font-bold text-slate-950 transition hover:scale-[1.02]" href="<?= $wa('home-nav', 'Ola, quero conversar sobre um projeto com a IzziHub.') ?>" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <button class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white md:hidden" type="button" data-menu-toggle aria-label="Abrir menu">
                 <span class="text-xl">☰</span>
@@ -135,7 +142,7 @@
                 <a class="text-sm font-semibold text-white/80" href="#processo">Processo</a>
                 <a class="text-sm font-semibold text-white/80" href="/cases.php">Portfólio</a>
                 <a class="text-sm font-semibold text-white/80" href="#contato">Contato</a>
-                <a class="mt-2 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-5 py-3 font-headline text-sm font-bold text-slate-950" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20conversar%20sobre%20um%20projeto%20com%20a%20IzziHub." target="_blank" rel="noopener">Falar no WhatsApp</a>
+                <a class="mt-2 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-5 py-3 font-headline text-sm font-bold text-slate-950" href="<?= $wa('home-nav-mobile', 'Ola, quero conversar sobre um projeto com a IzziHub.') ?>" target="_blank" rel="noopener">Falar no WhatsApp</a>
             </div>
         </div>
     </nav>
@@ -161,7 +168,7 @@
                         <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Sites e landing pages</span>
                     </div>
                     <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                        <a class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-8 py-4 font-headline text-lg font-bold text-slate-950 transition hover:scale-[1.02]" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20tirar%20um%20projeto%20do%20papel%20com%20a%20IzziHub." target="_blank" rel="noopener">Falar da minha ideia <span>↗</span></a>
+                        <a class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan to-cyanDeep px-8 py-4 font-headline text-lg font-bold text-slate-950 transition hover:scale-[1.02]" href="<?= $wa('home-hero', 'Ola, quero tirar um projeto do papel com a IzziHub.') ?>" target="_blank" rel="noopener">Falar da minha ideia <span>↗</span></a>
                         <a class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 py-4 font-headline text-lg font-bold text-white transition hover:border-white/20 hover:bg-white/10" href="/cases.php">Ver portfólio</a>
                     </div>
                 </div>
@@ -364,7 +371,7 @@
                     <h2 class="mt-4 font-headline text-4xl font-extrabold md:text-6xl">Vamos tirar seu projeto do papel?</h2>
                     <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/78">Se você já tem um rascunho, uma ideia validada ou um gargalo claro na operação, a gente pode transformar isso em produto e fluxo real.</p>
                     <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <a class="inline-flex items-center justify-center gap-2 rounded-full bg-green px-10 py-5 font-headline text-lg font-black text-slate-950 transition hover:scale-[1.02]" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20um%20projeto%20com%20a%20IzziHub." target="_blank" rel="noopener">Começar no WhatsApp <span>↗</span></a>
+                        <a class="inline-flex items-center justify-center gap-2 rounded-full bg-green px-10 py-5 font-headline text-lg font-black text-slate-950 transition hover:scale-[1.02]" href="<?= $wa('home-cta', 'Ola, quero falar sobre um projeto com a IzziHub.') ?>" target="_blank" rel="noopener">Começar no WhatsApp <span>↗</span></a>
                         <a class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-10 py-5 font-headline text-lg font-bold text-white transition hover:bg-white/10" href="mailto:contato@izzihub.com.br">contato@izzihub.com.br</a>
                     </div>
                 </div>
@@ -372,7 +379,7 @@
         </section>
     </main>
 
-    <a class="whatsapp-fab fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:scale-105" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20IzziHub." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <a class="whatsapp-fab fixed bottom-6 right-6 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:scale-105" href="<?= $wa('home-fab', 'Ola, quero falar com a IzziHub.') ?>" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
         <svg class="h-8 w-8 fill-current" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M13.601 2.326A7.854 7.854 0 0 0 8.004 0C3.58 0 0 3.58 0 8.004a7.97 7.97 0 0 0 1.14 4.111L0 16l4.01-1.052a7.97 7.97 0 0 0 3.994 1.071h.003A7.997 7.997 0 0 0 16 8.018a7.85 7.85 0 0 0-2.399-5.692zM8.007 14.66h-.002a6.62 6.62 0 0 1-3.374-.924l-.242-.144-2.38.624.635-2.32-.157-.238a6.61 6.61 0 0 1-1.022-3.536c0-3.654 2.975-6.629 6.635-6.629a6.59 6.59 0 0 1 4.691 1.944 6.59 6.59 0 0 1 1.939 4.694c-.001 3.654-2.975 6.629-6.623 6.629zm3.636-4.974c-.198-.099-1.173-.579-1.355-.645-.182-.066-.314-.099-.446.1-.132.198-.512.645-.628.777-.115.132-.23.148-.429.05-.198-.1-.838-.308-1.596-.981-.59-.526-.99-1.173-1.106-1.372-.115-.198-.012-.304.087-.402.09-.09.198-.231.297-.347.1-.116.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.1-.446-1.074-.611-1.471-.161-.387-.325-.335-.446-.341a7.03 7.03 0 0 0-.38-.006c-.132 0-.347.05-.528.248-.182.198-.694.678-.694 1.652 0 .975.711 1.917.81 2.049.1.132 1.398 2.136 3.387 2.994.473.205.842.327 1.13.418.474.15.905.129 1.246.078.38-.057 1.174-.479 1.339-.942.165-.463.165-.86.116-.942-.05-.083-.182-.132-.38-.231z"></path>
         </svg>
@@ -388,7 +395,7 @@
             <div class="flex gap-5 text-sm font-semibold text-white/60">
                 <a class="transition hover:text-white" href="/cases.php">Portfólio</a>
                 <a class="transition hover:text-white" href="mailto:contato@izzihub.com.br">E-mail</a>
-                <a class="transition hover:text-white" href="https://wa.me/5511982580565?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20IzziHub." target="_blank" rel="noopener">WhatsApp</a>
+                <a class="transition hover:text-white" href="<?= $wa('home-footer', 'Ola, quero falar com a IzziHub.') ?>" target="_blank" rel="noopener">WhatsApp</a>
             </div>
         </div>
     </footer>

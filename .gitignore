@@ -10,3 +10,5 @@ imagens/placeholder-dashboard.jpg
 imagens/placeholder-desktop.jpg
 imagens/placeholder-ecommerce.jpg
 imagens/placeholder-landing.jpg
+_private/tracking/*.log
+_private/tracking/*.jsonl
