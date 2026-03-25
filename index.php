@@ -149,8 +149,8 @@
             <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-12">
                 <div class="lg:col-span-7">
                     <span class="mb-6 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-bold uppercase tracking-[0.25em] text-cyan">Hub de Soluções Digitais</span>
-                    <h1 class="max-w-4xl font-headline text-5xl font-extrabold leading-tight md:text-7xl">
-                        Sistemas, apps e sites que <span class="headline-gradient">destravem sua operação e façam sua empresa vender melhor.</span>
+                    <h1 class="max-w-4xl font-headline text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
+                        Sistemas, apps e sites que <span class="headline-gradient">organizam sua operação e ajudam sua empresa a vender mais.</span>
                     </h1>
                     <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
                         Da hamburgueria ao app de nicho, a IzziHub cria tecnologia sob medida com visual premium, processo ágil e foco prático em conversão, gestão e escala.
