@@ -65,7 +65,27 @@ header('Pragma: no-cache');
     <title>Redirecionando para o WhatsApp | IzziHub</title>
     <meta name="robots" content="noindex,nofollow">
     <?php include __DIR__ . '/includes/google_tag.php'; ?>
-    <meta http-equiv="refresh" content="1;url=<?= htmlspecialchars($redirectUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <meta http-equiv="refresh" content="3;url=<?= htmlspecialchars($redirectUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <script>
+        window.izzihubRedirectUrl = <?= json_encode($redirectUrl, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
+        window.izzihubHasRedirected = false;
+
+        function izzihubRedirectNow() {
+            if (window.izzihubHasRedirected) {
+                return;
+            }
+
+            window.izzihubHasRedirected = true;
+            window.location.replace(window.izzihubRedirectUrl);
+        }
+
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18039740218/9j2gCLnjjpAcELqugppD',
+            'event_callback': izzihubRedirectNow
+        });
+
+        window.setTimeout(izzihubRedirectNow, 1400);
+    </script>
     <style>
         :root { color-scheme: dark; }
         body {
@@ -130,10 +150,5 @@ header('Pragma: no-cache');
         <p>Estamos registrando esse clique e abrindo a conversa com a IzziHub.</p>
         <a href="<?= htmlspecialchars($redirectUrl, ENT_QUOTES, 'UTF-8') ?>">Abrir WhatsApp agora</a>
     </div>
-    <script>
-        window.setTimeout(function () {
-            window.location.replace(<?= json_encode($redirectUrl, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>);
-        }, 180);
-    </script>
 </body>
 </html>
